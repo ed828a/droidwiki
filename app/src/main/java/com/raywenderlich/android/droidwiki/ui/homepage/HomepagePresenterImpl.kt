@@ -30,6 +30,7 @@
 
 package com.raywenderlich.android.droidwiki.ui.homepage
 
+import com.raywenderlich.android.droidwiki.application.WikiApplication
 import com.raywenderlich.android.droidwiki.network.Homepage
 import com.raywenderlich.android.droidwiki.model.HomepageResult
 import com.raywenderlich.android.droidwiki.network.WikiApi
@@ -38,41 +39,50 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import java.io.IOException
+import javax.inject.Inject
 
 class HomepagePresenterImpl : HomepagePresenter {
 
-  private lateinit var homepageView: HomepageView
+    private lateinit var homepageView: HomepageView
 
-  private val client: OkHttpClient = OkHttpClient()
-  private val api: WikiApi = WikiApi(client)
-  private val homepage: Homepage = Homepage(api)
+    private val client: OkHttpClient = OkHttpClient()
+    private val api: WikiApi = WikiApi(client)
+//    lateinit var client: OkHttpClient
+//        @Inject set
+//
+//    lateinit var api: WikiApi
+//        @Inject set
 
-  override fun setView(homepageView: HomepageView) {
-    this.homepageView = homepageView
-  }
+    private val homepage: Homepage = Homepage(api)
+//    @Inject
+//    lateinit var homepage: Homepage
 
-  override fun loadHomepage() {
-    homepageView.displayLoading()
-    homepage.get().enqueue(object : Callback {
-      override fun onResponse(call: Call?, response: Response?) {
-        homepageView.dismissLoading()
-        if (response?.isSuccessful == true) {
-          response.let {
-            HomepageResult(it).homepage?.let {
-              homepageView.displayHomepage(it)
-            } ?: run {
-              homepageView.displayError(response.message())
+    override fun setView(homepageView: HomepageView) {
+        this.homepageView = homepageView
+    }
+
+    override fun loadHomepage() {
+        homepageView.displayLoading()
+        homepage.get().enqueue(object : Callback {
+            override fun onResponse(call: Call?, response: Response?) {
+                homepageView.dismissLoading()
+                if (response?.isSuccessful == true) {
+                    response.let {
+                        HomepageResult(it).homepage?.let {
+                            homepageView.displayHomepage(it)
+                        } ?: run {
+                            homepageView.displayError(response.message())
+                        }
+                    }
+                } else {
+                    homepageView.displayError(response?.message())
+                }
             }
-          }
-        } else {
-          homepageView.displayError(response?.message())
-        }
-      }
 
-      override fun onFailure(call: Call?, t: IOException?) {
-        homepageView.displayError(t?.message)
-        t?.printStackTrace()
-      }
-    })
-  }
+            override fun onFailure(call: Call?, t: IOException?) {
+                homepageView.displayError(t?.message)
+                t?.printStackTrace()
+            }
+        })
+    }
 }

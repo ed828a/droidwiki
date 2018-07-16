@@ -46,7 +46,7 @@ class WikiApi(private val client: OkHttpClient) {
         ?.addQueryParameter("srsearch", query)
 
     return Request.Builder()
-        .url(urlBuilder?.build())
+        .url(urlBuilder!!.build())
         .get()
         .build()
         .let {
@@ -61,7 +61,7 @@ class WikiApi(private val client: OkHttpClient) {
         ?.addQueryParameter("format", "json")
 
     return Request.Builder()
-        .url(urlBuilder?.build())
+        .url(urlBuilder!!.build())
         .get()
         .build()
         .let {

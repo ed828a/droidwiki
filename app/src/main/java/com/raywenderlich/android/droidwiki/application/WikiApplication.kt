@@ -30,11 +30,37 @@
 
 package com.raywenderlich.android.droidwiki.application
 
+import android.app.Activity
 import android.app.Application
+import com.raywenderlich.android.droidwiki.di.AppComponent
+import com.raywenderlich.android.droidwiki.di.AppModule
+import com.raywenderlich.android.droidwiki.di.DaggerAppComponent
+import com.raywenderlich.android.droidwiki.di.DaggerAppComponent.builder
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class WikiApplication : Application() {
+class WikiApplication : Application(), HasActivityInjector {
 
-  override fun onCreate() {
-    super.onCreate()
-  }
+    lateinit var wikiComponent: AppComponent
+
+    @Inject
+    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+
+    override fun onCreate() {
+        super.onCreate()
+
+//        wikiComponent = DaggerAppComponent.create()
+        wikiComponent = initDagger(this)
+//        wikiComponent.inject(this)
+    }
+
+    private fun initDagger(app: WikiApplication): AppComponent =
+            DaggerAppComponent.builder()
+                    .appModule(AppModule(app))
+                    .build()
+
+
+    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 }
