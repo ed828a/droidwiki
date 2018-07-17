@@ -30,6 +30,8 @@
 
 package com.raywenderlich.android.droidwiki.network
 
-class Homepage(private val api: WikiApi) {
+import javax.inject.Inject
+
+class Homepage @Inject constructor(private val api: WikiApi) {
   fun get() = api.getHomepage()
 }

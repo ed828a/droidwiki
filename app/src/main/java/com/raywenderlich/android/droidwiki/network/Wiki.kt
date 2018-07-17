@@ -30,6 +30,8 @@
 
 package com.raywenderlich.android.droidwiki.network
 
-class Wiki(private val api: WikiApi) {
+import javax.inject.Inject
+
+class Wiki @Inject constructor(private val api: WikiApi) {
   fun search(query: String) = api.search(query)
 }

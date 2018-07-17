@@ -4,6 +4,7 @@ import com.raywenderlich.android.droidwiki.ui.homepage.HomepageActivity
 import com.raywenderlich.android.droidwiki.ui.search.SearchActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Singleton
 
 
 /**
@@ -13,9 +14,10 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class BuildersModule {
 
-    @ContributesAndroidInjector(modules = arrayOf(HomepageActivityModule::class))
+    @ContributesAndroidInjector(modules = [(HomepageActivityModule::class)])
+//    @ContributesAndroidInjector(modules = [PresenterModule::class])
     abstract fun bindHomepageActivity(): HomepageActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [SearchActivityModule::class])
     abstract fun bindSearchActivity(): SearchActivity
 }

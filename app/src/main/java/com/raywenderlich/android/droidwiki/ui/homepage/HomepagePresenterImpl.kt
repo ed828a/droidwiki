@@ -41,21 +41,15 @@ import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class HomepagePresenterImpl : HomepagePresenter {
+class HomepagePresenterImpl @Inject constructor(private val homepage: Homepage) : HomepagePresenter {
 
     private lateinit var homepageView: HomepageView
 
     private val client: OkHttpClient = OkHttpClient()
     private val api: WikiApi = WikiApi(client)
-//    lateinit var client: OkHttpClient
-//        @Inject set
-//
-//    lateinit var api: WikiApi
-//        @Inject set
 
-    private val homepage: Homepage = Homepage(api)
-//    @Inject
-//    lateinit var homepage: Homepage
+//    private val homepage: Homepage = Homepage(api)
+
 
     override fun setView(homepageView: HomepageView) {
         this.homepageView = homepageView

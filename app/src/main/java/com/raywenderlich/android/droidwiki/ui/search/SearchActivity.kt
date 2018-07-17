@@ -42,12 +42,16 @@ import com.raywenderlich.android.droidwiki.model.Entry
 import kotlinx.android.synthetic.main.activity_search.*
 import android.widget.SearchView
 import com.raywenderlich.android.droidwiki.utils.errorDialog
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class SearchActivity : Activity(), EntryView {
 
-  private val presenter: EntryPresenter = EntryPresenterImpl()
+  @Inject
+  lateinit var presenter: EntryPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_search)
 

@@ -51,9 +51,9 @@ class WikiApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
-//        wikiComponent = DaggerAppComponent.create()
-        wikiComponent = initDagger(this)
-//        wikiComponent.inject(this)
+        wikiComponent = DaggerAppComponent.create()
+//        wikiComponent = initDagger(this)
+        wikiComponent.inject(this)
     }
 
     private fun initDagger(app: WikiApplication): AppComponent =

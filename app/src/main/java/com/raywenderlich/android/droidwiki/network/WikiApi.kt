@@ -35,8 +35,9 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import javax.inject.Inject
 
-class WikiApi(private val client: OkHttpClient) {
+class WikiApi @Inject constructor(private val client: OkHttpClient) {
 
   fun search(query: String): Call {
     val urlBuilder = HttpUrl.parse("${Const.PROTOCOL}://${Const.LANGUAGE}.${Const.BASE_URL}")?.newBuilder()

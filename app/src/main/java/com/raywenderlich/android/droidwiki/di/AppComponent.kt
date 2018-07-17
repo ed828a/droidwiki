@@ -12,10 +12,15 @@ import javax.inject.Singleton
  */
 
 @Singleton
-//@Component(modules = arrayOf(AndroidInjectionModule::class, AppModule::class, BuildersModule::class))
-@Component(modules = [AppModule::class, PresenterModule::class])
+@Component(modules = [
+    (AndroidInjectionModule::class),
+    (AppModule::class),
+    (BuildersModule::class),
+    NetworkModule::class
+])
+//@Component(modules = [AppModule::class, PresenterModule::class])
 interface AppComponent {
 
-//    fun inject(app: WikiApplication)
-    fun inject(target: HomepageActivity)
+    fun inject(app: WikiApplication)
+//    fun inject(target: HomepageActivity)
 }

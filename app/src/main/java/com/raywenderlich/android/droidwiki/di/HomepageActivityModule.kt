@@ -7,6 +7,7 @@ import com.raywenderlich.android.droidwiki.ui.homepage.HomepagePresenterImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import javax.inject.Singleton
 
 
 /**
@@ -17,23 +18,26 @@ import okhttp3.OkHttpClient
 class HomepageActivityModule {
 
     @Provides
-    fun provideHomepagePresenter(): HomepagePresenter{
-        return HomepagePresenterImpl()
+    fun provideHomepagePresenter(homepage: Homepage): HomepagePresenter{
+        return HomepagePresenterImpl(homepage)
     }
-
-    @Provides
-    fun provideOkHttpClient(): OkHttpClient{
-        return OkHttpClient()
-    }
-
-//    val client = provideOkHttpClient()
-    @Provides
-    fun provideWikiApi(client: OkHttpClient): WikiApi {
-        return WikiApi(client)
-    }
-
-    @Provides
-    fun provideHomepage(api: WikiApi): Homepage {
-        return Homepage(api)
-    }
+//
+////    @Singleton
+//    @Provides
+//    fun provideHomepage(api: WikiApi): Homepage {
+//        return Homepage(api)
+//    }
+//
+//
+////    @Singleton
+//    @Provides
+//    fun provideWikiApi(client: OkHttpClient): WikiApi {
+//        return WikiApi(client)
+//    }
+//
+////    @Singleton
+//    @Provides
+//    fun provideOkHttpClient(): OkHttpClient {
+//        return OkHttpClient()
+//    }
 }
