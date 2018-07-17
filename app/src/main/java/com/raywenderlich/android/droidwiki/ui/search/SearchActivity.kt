@@ -41,13 +41,17 @@ import com.raywenderlich.android.droidwiki.R
 import com.raywenderlich.android.droidwiki.model.Entry
 import kotlinx.android.synthetic.main.activity_search.*
 import android.widget.SearchView
+import com.raywenderlich.android.droidwiki.application.WikiApplication
 import com.raywenderlich.android.droidwiki.utils.errorDialog
+import javax.inject.Inject
 
 class SearchActivity : Activity(), EntryView {
 
-  private val presenter: EntryPresenter = EntryPresenterImpl()
+//  private val presenter: EntryPresenter = EntryPresenterImpl()
+  @Inject lateinit var presenter: EntryPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    (application as WikiApplication).appComponent.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_search)
 

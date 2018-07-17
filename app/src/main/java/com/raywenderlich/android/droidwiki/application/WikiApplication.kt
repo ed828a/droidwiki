@@ -31,10 +31,22 @@
 package com.raywenderlich.android.droidwiki.application
 
 import android.app.Application
+import com.raywenderlich.android.droidwiki.di.AppComponent
+import com.raywenderlich.android.droidwiki.di.AppModule
+import com.raywenderlich.android.droidwiki.di.DaggerAppComponent
 
 class WikiApplication : Application() {
 
-  override fun onCreate() {
-    super.onCreate()
-  }
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+
+        appComponent = initDagger(this)
+    }
+
+    private fun initDagger(app: WikiApplication): AppComponent =
+            DaggerAppComponent.builder()
+                    .appModule(AppModule(app))
+                    .build()
 }
