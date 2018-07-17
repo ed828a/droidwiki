@@ -54,8 +54,8 @@ class HomepageActivity : Activity(), HomepageView {
     @Inject set
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-//        (application as WikiApplication).wikiComponent.inject(this)
+//        AndroidInjection.inject(this)
+        (application as WikiApplication).wikiComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
 

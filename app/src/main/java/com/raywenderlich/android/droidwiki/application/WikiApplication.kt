@@ -41,19 +41,20 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class WikiApplication : Application(), HasActivityInjector {
+//class WikiApplication : Application(), HasActivityInjector
+class WikiApplication : Application(){
 
     lateinit var wikiComponent: AppComponent
 
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+//    @Inject
+//    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
 
         wikiComponent = DaggerAppComponent.create()
 //        wikiComponent = initDagger(this)
-        wikiComponent.inject(this)
+//        wikiComponent.inject(this)
     }
 
     private fun initDagger(app: WikiApplication): AppComponent =
@@ -62,5 +63,5 @@ class WikiApplication : Application(), HasActivityInjector {
                     .build()
 
 
-    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
+//    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 }
